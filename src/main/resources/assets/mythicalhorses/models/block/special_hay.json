@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "mythicalhorses:block/special_hay_top",
+    "side": "mythicalhorses:block/special_hay_side"
+  }
+}

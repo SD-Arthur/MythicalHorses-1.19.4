@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "item": "minecraft:leather"
+    },
+    "&": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "pattern": [
+    "  #",
+    "#&#",
+    "###"
+  ],
+  "result": {
+    "item": "minecraft:leather_horse_armor"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": [
+    "minecraft:plains",
+    "minecraft:savanna"
+  ],
+  "spawners": {
+    "type": "mythicalhorses:generic_horse",
+    "weight": 4,
+    "minCount": 1,
+    "maxCount": 4
+  }
+}

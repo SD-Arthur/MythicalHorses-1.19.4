@@ -1,0 +1,13 @@
+{
+  "item.mythicalhorses.amulet": "Amulet",
+  "item.mythicalhorses.amulet_active": "Amulet",
+  "item.mythicalhorses.sugar_cubes": "Sugar Cubes",
+
+  "item.mythicalhorses.generic_horse_spawn_egg": "Generic Horse Spawn Egg",
+
+  "block.mythicalhorses.special_hay": "Special Hay",
+
+  "entity.mythicalhorses.generic_horse": "Generic Horse",
+
+  "tabs.mythicalhorses.mythical_horses_tab": "Mythical Horses"
+}

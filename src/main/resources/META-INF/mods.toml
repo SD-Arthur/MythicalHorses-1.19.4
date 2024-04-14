@@ -1,0 +1,16 @@
+modLoader="javafml"
+loaderVersion="[45,)"
+license="MIT"
+
+[[mods]]
+modId="mythicalhorses"
+version="0.0.1"
+displayName="Mythical Horses"
+#updateJSONURL="https://change.me.example.invalid/updates.json"
+#displayURL="https://change.me.to.your.mods.homepage.example.invalid/"
+logoFile="logo.png"
+credits="A special thanks to TurtyWurty for providing modding tutorials."
+authors="SDArthur"
+description='''
+A re-imagination of the horses from the Mo'Creatures mod, brought to recent versions.
+'''
