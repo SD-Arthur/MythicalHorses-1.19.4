@@ -11,11 +11,10 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.sdarthur.mythicalhorses.MythicalHorses;
 import net.sdarthur.mythicalhorses.entities.GenericHorse;
 import net.sdarthur.mythicalhorses.init.EntityInit;
+import net.sdarthur.mythicalhorses.network.PacketHandler;
 
 @Mod.EventBusSubscriber(modid = MythicalHorses.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModCommonEvents {
-    @SubscribeEvent
-    public static void commonSetup(FMLCommonSetupEvent event) {}
 
     @SubscribeEvent
     public static void entityAttributes(EntityAttributeCreationEvent event) {
