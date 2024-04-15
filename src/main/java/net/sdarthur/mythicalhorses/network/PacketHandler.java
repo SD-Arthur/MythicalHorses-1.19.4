@@ -26,18 +26,6 @@ public class PacketHandler {
 
         INSTANCE = net;
 
-        net.messageBuilder(SAmuletPickUp.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(SAmuletPickUp::new)
-                .encoder(SAmuletPickUp::encode)
-                .consumerMainThread(SAmuletPickUp::handle)
-                .add();
-
-        net.messageBuilder(SAmuletSpawn.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(SAmuletSpawn::new)
-                .encoder(SAmuletSpawn::encode)
-                .consumerMainThread(SAmuletSpawn::handle)
-                .add();
-
         net.messageBuilder(SChatMessage.class, id() ,NetworkDirection.PLAY_TO_SERVER)
                 .decoder(SChatMessage::new)
                 .encoder(SChatMessage::encode)

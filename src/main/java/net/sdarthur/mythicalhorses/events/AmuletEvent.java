@@ -1,19 +1,7 @@
 package net.sdarthur.mythicalhorses.events;
 
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.sdarthur.mythicalhorses.MythicalHorses;
-import net.sdarthur.mythicalhorses.entities.GenericHorse;
-import net.sdarthur.mythicalhorses.init.ItemInit;
-import net.sdarthur.mythicalhorses.network.PacketHandler;
-import net.sdarthur.mythicalhorses.network.SAmuletPickUp;
-import net.sdarthur.mythicalhorses.network.SChatMessage;
 
 @Mod.EventBusSubscriber(modid = MythicalHorses.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class AmuletEvent {
