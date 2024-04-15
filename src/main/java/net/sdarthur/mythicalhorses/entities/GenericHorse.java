@@ -23,16 +23,18 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.sdarthur.mythicalhorses.init.EntityInit;
 import net.sdarthur.mythicalhorses.init.ItemInit;
+import net.sdarthur.mythicalhorses.items.Amulet;
+import net.sdarthur.mythicalhorses.mother_classes.TamableHorse;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
 
-public class GenericHorse extends TamableAnimal implements PlayerRideableJumping {
+public class GenericHorse extends TamableHorse implements PlayerRideableJumping {
 
     protected float playerJumpPendingScale;
     protected boolean isJumping;
 
-    public GenericHorse(EntityType<? extends TamableAnimal> t_entity, Level level) {
+    public GenericHorse(EntityType<? extends TamableHorse> t_entity, Level level) {
         super(t_entity, level);
         setMaxUpStep(1.0F);
     }
@@ -75,12 +77,12 @@ public class GenericHorse extends TamableAnimal implements PlayerRideableJumping
         ItemStack itemstack = player.getItemInHand(player.getUsedItemHand());
 
         if(this.level.isClientSide) {
-            boolean flag = this.isOwnedBy(player) || this.isTame() || itemstack.is(Items.APPLE) && !this.isTame();
+            boolean flag = this.isOwnedBy(player) || this.isTamed() || itemstack.is(Items.APPLE) && !this.isTamed();
             return flag ? InteractionResult.CONSUME : InteractionResult.PASS;
         }
 
         //TAME
-        else if (itemstack.is(Items.APPLE) && !isTame()) {
+        else if (itemstack.is(Items.APPLE) && !isTamed()) {
             if (!player.getAbilities().instabuild) {
                 itemstack.shrink(1);
             }
@@ -96,13 +98,13 @@ public class GenericHorse extends TamableAnimal implements PlayerRideableJumping
         }
 
         //HEAL
-        else if(isTame() && !isVehicle() && !itemstack.isEmpty()) {
+        else if(isTamed() && !isVehicle() && !itemstack.isEmpty()) {
             if((itemstack.is(ItemInit.SUGAR_CUBES.get())) && this.getHealth() < this.getMaxHealth()){
                 this.heal(6.0F);
                 itemstack.shrink(1);
             }
         }
-        else if(!this.isVehicle() && !this.isBaby() && this.isTame() && itemstack.isEmpty()) {
+        else if(!this.isVehicle() && !this.isBaby() && this.isTamed() && itemstack.isEmpty()) {
             doPlayerRide(player);
             return InteractionResult.sidedSuccess(this.level.isClientSide);
         }

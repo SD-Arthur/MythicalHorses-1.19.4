@@ -2,14 +2,19 @@ package net.sdarthur.mythicalhorses.items;
 
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.sdarthur.mythicalhorses.entities.GenericHorse;
 import net.sdarthur.mythicalhorses.init.ItemInit;
 import net.sdarthur.mythicalhorses.network.PacketHandler;
 import net.sdarthur.mythicalhorses.network.SAmuletPickUp;
+import net.sdarthur.mythicalhorses.network.SChatMessage;
+import org.jetbrains.annotations.NotNull;
 
 public class Amulet extends Item {
     public Amulet(Properties properties) {
@@ -22,23 +27,24 @@ public class Amulet extends Item {
             return InteractionResult.SUCCESS;
         }
 
-        if(!(entity instanceof GenericHorse)) {
+//        if(!(entity instanceof GenericHorse)) {
+//            return InteractionResult.FAIL;
+//        }
+
+//        GenericHorse horse = (GenericHorse) entity;
+
+//        if(!(horse.isOwnedBy(player))) {
+//            return InteractionResult.FAIL;
+//        }
+
+        if(!player.isShiftKeyDown()) {
             return InteractionResult.FAIL;
         }
 
-        GenericHorse horse = (GenericHorse) entity;
+//        PacketHandler.sendToServer(new SAmuletPickUp(horse.getUUID()));
+        PacketHandler.sendToServer(new SChatMessage());
 
-        if(!(horse.isOwnedBy(player))) {
-            return InteractionResult.FAIL;
-        }
-
-        if(player.isShiftKeyDown()) {
-            return InteractionResult.FAIL;
-        }
-
-        PacketHandler.sendToServer(new SAmuletPickUp(horse.getUUID()));
-
-        return InteractionResult.SUCCESS;
+        return super.interactLivingEntity(stack, player, entity, hand);
     }
 
     public static void pickUp(GenericHorse horse, Player player) {
