@@ -15,6 +15,12 @@ import net.sdarthur.mythicalhorses.network.PacketHandler;
 
 @Mod.EventBusSubscriber(modid = MythicalHorses.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModCommonEvents {
+    @SubscribeEvent
+    public static void commonSetup(final FMLCommonSetupEvent event) {
+        event.enqueueWork(() -> {
+            PacketHandler.register();
+        });
+    }
 
     @SubscribeEvent
     public static void entityAttributes(EntityAttributeCreationEvent event) {

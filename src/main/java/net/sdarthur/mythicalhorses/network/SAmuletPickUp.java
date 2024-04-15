@@ -4,7 +4,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
 import net.sdarthur.mythicalhorses.entities.GenericHorse;
-import net.sdarthur.mythicalhorses.items.Amulet;
+import net.sdarthur.mythicalhorses.events.AmuletEvent;
 
 import java.util.UUID;
 import java.util.function.Supplier;
@@ -30,7 +30,7 @@ public class SAmuletPickUp {
             return;
         }
         sender.level.getEntitiesOfClass(GenericHorse.class, sender.getBoundingBox().inflate(8D), v -> v.getUUID().equals(horse)).stream().findAny().ifPresent(GenericHorse -> {
-            Amulet.pickUp(GenericHorse, sender);
+            AmuletEvent.pickUp(GenericHorse, sender);
         });
     }
 }

@@ -1,7 +1,7 @@
 package net.sdarthur.mythicalhorses.network;
 
-import net.minecraft.network.protocol.Packet;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
@@ -13,7 +13,7 @@ public class PacketHandler {
             new ResourceLocation(MythicalHorses.MODID, "main"))
             .serverAcceptedVersions(s -> true)
             .clientAcceptedVersions(s -> true)
-            .networkProtocolVersion(() -> "1")
+            .networkProtocolVersion(() -> "1.0")
             .simpleChannel();
 
     public static void register() {
@@ -30,7 +30,11 @@ public class PacketHandler {
                 .add();
     }
 
-    public static void sendToServer(Object msg) {
-        PacketDistributor.SERVER.noArg().send((Packet<?>) msg);
+    public static <MSG> void sendToServer(MSG msg) {
+        INSTANCE.sendToServer(msg);
+    }
+
+    public static <MSG> void sendToPlayer(MSG msg, ServerPlayer player) {
+        INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), msg);
     }
 }
