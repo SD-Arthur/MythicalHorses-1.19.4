@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#E#",
+    "EVE",
+    "#E#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:lapis_block"
+    },
+    "E": {
+      "item": "minecraft:emerald"
+    },
+    "V": {
+      "item": "minecraft:ender_eye"
+    }
+  },
+  "result": {
+    "item": "mythicalhorses:amulet"
+  }
+}

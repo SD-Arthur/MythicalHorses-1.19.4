@@ -35,7 +35,5 @@ public class SAmuletPickUp {
         sender.level.getEntitiesOfClass(GenericHorse.class, sender.getBoundingBox().inflate(8D), v -> v.getUUID().equals(horse)).stream().findAny().ifPresent(GenericHorse -> {
             Amulet.pickUp(GenericHorse, sender);
         });
-
-
     }
 }
