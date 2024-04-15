@@ -8,7 +8,6 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraftforge.network.NetworkEvent;
 import net.sdarthur.mythicalhorses.init.EntityInit;
 
-import java.util.UUID;
 import java.util.function.Supplier;
 
 public class SAmuletSpawn {

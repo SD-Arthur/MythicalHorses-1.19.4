@@ -18,14 +18,14 @@ public class PacketHandler {
 
     public static void register() {
         INSTANCE.messageBuilder(SAmuletPickUp.class, NetworkDirection.PLAY_TO_SERVER.ordinal())
-                .encoder(SAmuletPickUp::encode)
                 .decoder(SAmuletPickUp::new)
+                .encoder(SAmuletPickUp::encode)
                 .consumerMainThread(SAmuletPickUp::handle)
                 .add();
 
         INSTANCE.messageBuilder(SAmuletSpawn.class, NetworkDirection.PLAY_TO_SERVER.ordinal())
-                .encoder(SAmuletSpawn::encode)
                 .decoder(SAmuletSpawn::new)
+                .encoder(SAmuletSpawn::encode)
                 .consumerMainThread(SAmuletSpawn::handle)
                 .add();
     }

@@ -9,6 +9,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.sdarthur.mythicalhorses.MythicalHorses;
 import net.sdarthur.mythicalhorses.items.Amulet;
+import net.sdarthur.mythicalhorses.items.AmuletActive;
 
 import java.util.Properties;
 
@@ -18,8 +19,8 @@ public class ItemInit {
     public static final RegistryObject<Amulet> AMULET = ITEMS.register("amulet",
             () -> new Amulet(new Item.Properties().stacksTo(1)));
 
-    public static final RegistryObject<Amulet> AMULET_ACTIVE = ITEMS.register("amulet_active",
-            () -> new Amulet(new Item.Properties().stacksTo(1)));
+    public static final RegistryObject<AmuletActive> AMULET_ACTIVE = ITEMS.register("amulet_active",
+            () -> new AmuletActive(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> SUGAR_CUBES = ITEMS.register("sugar_cubes",
             () -> new Item(new Item.Properties().food(Foods.SUGAR_CUBES)));
