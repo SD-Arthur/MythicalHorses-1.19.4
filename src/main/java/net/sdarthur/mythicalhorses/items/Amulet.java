@@ -23,28 +23,14 @@ public class Amulet extends Item {
 
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity entity, InteractionHand hand) {
-        if(!player.getLevel().isClientSide) {
+
+        if(!player.level.isClientSide && hand == InteractionHand.MAIN_HAND && entity instanceof GenericHorse && (((GenericHorse) entity).isOwnedBy(player))) {
+            player.swing(hand);
+            entity.remove(Entity.RemovalReason.DISCARDED);
             return InteractionResult.SUCCESS;
         }
 
-//        if(!(entity instanceof GenericHorse)) {
-//            return InteractionResult.FAIL;
-//        }
-
-//        GenericHorse horse = (GenericHorse) entity;
-
-//        if(!(horse.isOwnedBy(player))) {
-//            return InteractionResult.FAIL;
-//        }
-
-        if(!player.isShiftKeyDown()) {
-            return InteractionResult.FAIL;
-        }
-
-//        PacketHandler.sendToServer(new SAmuletPickUp(horse.getUUID()));
-        PacketHandler.sendToServer(new SChatMessage());
-
-        return super.interactLivingEntity(stack, player, entity, hand);
+        return InteractionResult.FAIL;
     }
 
     public static void pickUp(GenericHorse horse, Player player) {
