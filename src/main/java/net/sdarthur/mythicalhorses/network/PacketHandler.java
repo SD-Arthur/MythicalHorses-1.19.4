@@ -9,24 +9,39 @@ import net.minecraftforge.network.simple.SimpleChannel;
 import net.sdarthur.mythicalhorses.MythicalHorses;
 
 public class PacketHandler {
-    private static final SimpleChannel INSTANCE = NetworkRegistry.ChannelBuilder.named(
-            new ResourceLocation(MythicalHorses.MODID, "main"))
-            .serverAcceptedVersions(s -> true)
-            .clientAcceptedVersions(s -> true)
-            .networkProtocolVersion(() -> "1.0")
-            .simpleChannel();
+    private static SimpleChannel INSTANCE;
+
+    private static int packetId = 0;
+    private static int id() {
+        return packetId++;
+    }
 
     public static void register() {
-        INSTANCE.messageBuilder(SAmuletPickUp.class, NetworkDirection.PLAY_TO_SERVER.ordinal())
+        SimpleChannel net = NetworkRegistry.ChannelBuilder
+                .named( new ResourceLocation(MythicalHorses.MODID, "main"))
+                .serverAcceptedVersions(s -> true)
+                .clientAcceptedVersions(s -> true)
+                .networkProtocolVersion(() -> "1.0")
+                .simpleChannel();
+
+        INSTANCE = net;
+
+        net.messageBuilder(SAmuletPickUp.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(SAmuletPickUp::new)
                 .encoder(SAmuletPickUp::encode)
                 .consumerMainThread(SAmuletPickUp::handle)
                 .add();
 
-        INSTANCE.messageBuilder(SAmuletSpawn.class, NetworkDirection.PLAY_TO_SERVER.ordinal())
+        net.messageBuilder(SAmuletSpawn.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(SAmuletSpawn::new)
                 .encoder(SAmuletSpawn::encode)
                 .consumerMainThread(SAmuletSpawn::handle)
+                .add();
+
+        net.messageBuilder(SChatMessage.class, id() ,NetworkDirection.PLAY_TO_SERVER)
+                .decoder(SChatMessage::new)
+                .encoder(SChatMessage::encode)
+                .consumerMainThread(SChatMessage::handle)
                 .add();
     }
 

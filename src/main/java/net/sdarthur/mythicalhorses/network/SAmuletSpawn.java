@@ -2,6 +2,7 @@ package net.sdarthur.mythicalhorses.network;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.MobSpawnType;
@@ -25,14 +26,17 @@ public class SAmuletSpawn {
         buffer.writeBlockPos(looking);
     }
 
-    public void handle(Supplier<NetworkEvent.Context> context) {
-        ServerPlayer player = context.get().getSender();
+    public void handle(Supplier<NetworkEvent.Context> supplier) {
+        NetworkEvent.Context context = supplier.get();
 
-        if(player == null) {
-            return;
-        }
+        context.enqueueWork(() -> {
+            ServerPlayer player = context.getSender();
+            if(player == null) {
+                return;
+            }
 
-        ServerLevel level = (ServerLevel) player.level;
-        EntityInit.GENERIC_HORSE.get().spawn(level, looking, MobSpawnType.MOB_SUMMONED);
+            ServerLevel level = (ServerLevel) player.level;
+            EntityInit.GENERIC_HORSE.get().spawn(level, looking, MobSpawnType.MOB_SUMMONED);
+        });
     }
 }
