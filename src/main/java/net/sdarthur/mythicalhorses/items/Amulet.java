@@ -12,6 +12,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.sdarthur.mythicalhorses.entities.GenericHorse;
 import net.sdarthur.mythicalhorses.init.ItemInit;
@@ -39,7 +40,7 @@ public class Amulet extends Item {
             trueStack.setTag(newTag);
 
             player.swing(hand);
-            player.level.playSound(player, player.blockPosition(), SoundEvents.SOUL_ESCAPE, SoundSource.NEUTRAL, 3.0F, 0.75F);
+//            player.level.playSound(player, player.blockPosition(), SoundEvents.SOUL_ESCAPE, SoundSource.NEUTRAL, 15.0F, 0.75F);
             target.remove(Entity.RemovalReason.DISCARDED);
             return InteractionResult.SUCCESS;
         }

@@ -1,14 +1,11 @@
 package net.sdarthur.mythicalhorses;
 
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.sdarthur.mythicalhorses.events.AmuletEvent;
-import net.sdarthur.mythicalhorses.events.ModClientEvents;
 import net.sdarthur.mythicalhorses.init.BlockInit;
 import net.sdarthur.mythicalhorses.init.EntityInit;
 import net.sdarthur.mythicalhorses.init.ItemInit;

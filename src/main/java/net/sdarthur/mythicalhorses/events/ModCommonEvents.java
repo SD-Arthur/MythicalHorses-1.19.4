@@ -9,6 +9,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.sdarthur.mythicalhorses.MythicalHorses;
+import net.sdarthur.mythicalhorses.entities.GenericFlyingHorse;
 import net.sdarthur.mythicalhorses.entities.GenericHorse;
 import net.sdarthur.mythicalhorses.init.EntityInit;
 import net.sdarthur.mythicalhorses.network.PacketHandler;
@@ -25,6 +26,7 @@ public class ModCommonEvents {
     @SubscribeEvent
     public static void entityAttributes(EntityAttributeCreationEvent event) {
         event.put(EntityInit.GENERIC_HORSE.get(), GenericHorse.createAttributes().build());
+        event.put(EntityInit.GENERIC_FLYING_HORSE.get(), GenericFlyingHorse.createAttributes().build());
     }
 
     @SubscribeEvent

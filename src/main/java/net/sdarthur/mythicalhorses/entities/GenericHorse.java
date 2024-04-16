@@ -8,11 +8,11 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.horse.Horse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -20,10 +20,11 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.event.ForgeEventFactory;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.sdarthur.mythicalhorses.init.EntityInit;
 import net.sdarthur.mythicalhorses.init.ItemInit;
-import net.sdarthur.mythicalhorses.items.Amulet;
 import net.sdarthur.mythicalhorses.mother_classes.TamableHorse;
 import org.jetbrains.annotations.Nullable;
 
@@ -119,8 +120,8 @@ public class GenericHorse extends TamableHorse implements PlayerRideableJumping 
     }
 
     @Override
-    public ItemStack eat(Level p_21067_, ItemStack p_21068_) {
-        return super.eat(p_21067_, p_21068_);
+    public ItemStack eat(Level pLevel, ItemStack pFood) {
+        return super.eat(pLevel, pFood);
     }
 
     //------ RIDING ------
@@ -161,7 +162,12 @@ public class GenericHorse extends TamableHorse implements PlayerRideableJumping 
             f1 *= 0.25F;
         }
 
-        return new Vec3(f, 0.0, f1);
+        if(this.onGround) {
+            return new Vec3(f, 0.0, f1);
+        }
+        else {
+            return new Vec3(f*5, 0.0, f1*5);
+        }
     }
 
     @Override
@@ -211,7 +217,6 @@ public class GenericHorse extends TamableHorse implements PlayerRideableJumping 
         Vec3 vec3 = this.getDeltaMovement();
         this.setDeltaMovement(vec3.x, d1, vec3.z);
         this.setIsJumping(true);
-        this.hasImpulse = true;
         //CommonHooks.onLivingJump(this);
         if (vec31.z > 0.0) {
             float f = Mth.sin(this.getYRot() * 0.017453292F);
@@ -264,22 +269,22 @@ public class GenericHorse extends TamableHorse implements PlayerRideableJumping 
 
     //------ FALL DAMAGE ------
     @Override
-    public boolean causeFallDamage(float p_149499_, float p_149500_, DamageSource p_149501_) {
-        if (p_149499_ > 1.0F) {
+    public boolean causeFallDamage(float pFallDistance, float pMultiplier, DamageSource pSource) {
+        if (pFallDistance > 1.0F) {
             this.playSound(SoundEvents.HORSE_LAND, 0.4F, 1.0F);
         }
 
-        int i = this.calculateFallDamage(p_149499_, p_149500_);
+        int i = this.calculateFallDamage(pFallDistance, pMultiplier);
         if (i <= 0) {
             return false;
         } else {
-            this.hurt(p_149501_, (float)i);
+            this.hurt(pSource, (float)i);
             if (this.isVehicle()) {
                 Iterator var5 = this.getIndirectPassengers().iterator();
 
                 while(var5.hasNext()) {
                     Entity entity = (Entity)var5.next();
-                    entity.hurt(p_149501_, (float)i);
+                    entity.hurt(pSource, (float)i);
                 }
             }
 
@@ -289,8 +294,9 @@ public class GenericHorse extends TamableHorse implements PlayerRideableJumping 
     }
 
     @Override
-    protected int calculateFallDamage(float p_30606_, float p_30607_) {
-        return Mth.ceil((p_30606_ * 0.5F - 3.0F) * p_30607_);
+    protected int calculateFallDamage(float pFallDistance, float pDamageMultiplier) {
+//        return Mth.ceil((pFallDistance * 0.5F - 3.0F) * pDamageMultiplier);
+        return 0;
     }
 
     //------ SOUNDS ------
