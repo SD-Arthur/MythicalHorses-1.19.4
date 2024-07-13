@@ -21,5 +21,5 @@ public class EntityInit {
     public static final RegistryObject<EntityType<GenericFlyingHorse>> GENERIC_FLYING_HORSE = ENTITIES.register("generic_flying_horse",
             () -> EntityType.Builder.of(GenericFlyingHorse::new, MobCategory.AMBIENT)
                     .sized(1.0F, 1.0F)
-                    .build(new ResourceLocation(MythicalHorses.MODID, "generic_flying_horsee").toString()));
+                    .build(new ResourceLocation(MythicalHorses.MODID, "generic_flying_horse").toString()));
 }

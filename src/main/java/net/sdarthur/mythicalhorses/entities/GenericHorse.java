@@ -30,12 +30,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Iterator;
 
-public class GenericHorse extends TamableHorse implements PlayerRideableJumping {
+public class GenericHorse extends TamableAnimal implements PlayerRideableJumping {
 
     protected float playerJumpPendingScale;
     protected boolean isJumping;
 
-    public GenericHorse(EntityType<? extends TamableHorse> t_entity, Level level) {
+    public GenericHorse(EntityType<? extends TamableAnimal> t_entity, Level level) {
         super(t_entity, level);
         setMaxUpStep(1.0F);
     }
@@ -78,12 +78,12 @@ public class GenericHorse extends TamableHorse implements PlayerRideableJumping 
         ItemStack itemstack = player.getItemInHand(player.getUsedItemHand());
 
         if(this.level.isClientSide) {
-            boolean flag = this.isOwnedBy(player) || this.isTamed() || itemstack.is(Items.APPLE) && !this.isTamed();
+            boolean flag = this.isOwnedBy(player) || this.isTame() || itemstack.is(Items.APPLE) && !this.isTame();
             return flag ? InteractionResult.CONSUME : InteractionResult.PASS;
         }
 
         //TAME
-        else if (itemstack.is(Items.APPLE) && !isTamed()) {
+        else if (itemstack.is(Items.APPLE) && !isTame()) {
             if (!player.getAbilities().instabuild) {
                 itemstack.shrink(1);
             }
@@ -99,13 +99,13 @@ public class GenericHorse extends TamableHorse implements PlayerRideableJumping 
         }
 
         //HEAL
-        else if(isTamed() && !isVehicle() && !itemstack.isEmpty()) {
+        else if(isTame() && !isVehicle() && !itemstack.isEmpty()) {
             if((itemstack.is(ItemInit.SUGAR_CUBES.get())) && this.getHealth() < this.getMaxHealth()){
                 this.heal(6.0F);
                 itemstack.shrink(1);
             }
         }
-        else if(!this.isVehicle() && !this.isBaby() && this.isTamed() && itemstack.isEmpty()) {
+        else if(!this.isVehicle() && !this.isBaby() && this.isTame() && itemstack.isEmpty()) {
             doPlayerRide(player);
             return InteractionResult.sidedSuccess(this.level.isClientSide);
         }
@@ -215,7 +215,7 @@ public class GenericHorse extends TamableHorse implements PlayerRideableJumping 
         double d0 = this.getCustomJump() * (double)v * (double)this.getBlockJumpFactor();
         double d1 = d0 + (double)this.getJumpBoostPower();
         Vec3 vec3 = this.getDeltaMovement();
-        this.setDeltaMovement(vec3.x, d1, vec3.z);
+        this.setDeltaMovement(vec3.x, d0, vec3.z);
         this.setIsJumping(true);
         //CommonHooks.onLivingJump(this);
         if (vec31.z > 0.0) {
@@ -295,8 +295,7 @@ public class GenericHorse extends TamableHorse implements PlayerRideableJumping 
 
     @Override
     protected int calculateFallDamage(float pFallDistance, float pDamageMultiplier) {
-//        return Mth.ceil((pFallDistance * 0.5F - 3.0F) * pDamageMultiplier);
-        return 0;
+        return Mth.ceil((pFallDistance * 0.5F - 3.0F) * pDamageMultiplier);
     }
 
     //------ SOUNDS ------

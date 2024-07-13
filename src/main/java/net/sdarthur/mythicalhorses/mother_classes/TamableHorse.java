@@ -50,10 +50,6 @@ public class TamableHorse extends Animal implements OwnableEntity {
         this.entityData.define(DATA_ID_FLAGS, (byte)0);
     }
 
-    protected boolean getFlag(int pFlagId) {
-        return ((Byte)this.entityData.get(DATA_ID_FLAGS) & pFlagId) != 0;
-    }
-
     protected void setFlag(int pFlagId, boolean pValue) {
         byte b0 = (Byte)this.entityData.get(DATA_ID_FLAGS);
         if (pValue) {
@@ -74,7 +70,7 @@ public class TamableHorse extends Animal implements OwnableEntity {
     }
 
     public boolean isTamed() {
-        return this.getFlag(2);
+        return ((Byte)this.entityData.get(DATA_ID_FLAGS) & 2) != 0;
     }
 
     public void setTamed(boolean pTamed) {
